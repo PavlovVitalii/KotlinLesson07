@@ -2,9 +2,9 @@ package com.example.kotlinlesson07
 
 import android.os.Bundle
 import android.view.KeyEvent
-import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 
 class WebActivityViev : AppCompatActivity() {
@@ -18,10 +18,21 @@ class WebActivityViev : AppCompatActivity() {
         myWebView = findViewById<WebView>(R.id.web_id).apply {
             settings.javaScriptEnabled = true
             webViewClient = MyWebViewClient()
-            webChromeClient = MyChromeWebViewClient()
             loadUrl("https://kotlinlang.ru/")
         }
 
+        findViewById<Button>(R.id.button_back).setOnClickListener {
+            if (myWebView.canGoBack()) {
+                myWebView.goBack();
+            }
+        }
+
+        findViewById<Button>(R.id.button_forward).setOnClickListener {
+
+            if (myWebView.canGoForward()) {
+                myWebView.goForward()
+            }
+        }
 
     }
 
@@ -33,7 +44,6 @@ class WebActivityViev : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
-
 }
 
 
@@ -44,7 +54,3 @@ private class MyWebViewClient : WebViewClient() {
     }
 }
 
-private class MyChromeWebViewClient : WebChromeClient() {
-
-    //  handle Javascript dialogs, favicons, titles, and the progress
-}
